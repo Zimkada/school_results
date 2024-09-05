@@ -3,32 +3,30 @@ import pandas as pd
 #import networkx as nx
 #import plotly.graph_objects as go
 
-from utils.data_processing import load_data_1
-from utils.charts import generate_dashboard
+from utils.data_processing import load_data_eff, load_data_prcent, processing
+from utils.charts import generate_dashboard 
 
 st.set_page_config(page_title="Diagramme de Flux", page_icon="🔀", layout="wide")
 
-st.title("Diagramme de Flux")
-
-
+st.title(":blue[Tableau de Bord des Performances]")
 
 
 def main():
-    st.title("Tableau de Bord des Performances")
+    
     
     # Charger les données
-    df_eff = load_data_1()
-    
-    # Sélectionner un collège et une classe
-    college = st.selectbox("Choisir un collège", df_eff['college'].unique())
-    classe = st.selectbox("Choisir une classe", df_eff[df_eff['college'] == college]['classe'].unique())
-    
-    # Filtrer les données par collège et classe
-    df_college_classe = df_eff[(df_eff['college'] == college) & (df_eff['classe'] == classe)]
-    
+    df_1 = load_data_eff()
+    df_2 = load_data_prcent()
+
+    # Preparation des données 
+    df_eff = processing(df_1)
+    df_percent = processing(df_2)
+
+
     # Générer le tableau de bord
-    dashboard = generate_dashboard(df_college_classe)
+    dashboard = generate_dashboard(df_eff, df_percent)
     
+
     # Afficher le tableau de bord
     st.plotly_chart(dashboard)
 
@@ -40,7 +38,11 @@ if __name__ == "__main__":
 
 
 
-
-
-
-st.markdown(':orange[Application web développée par : Chabi Zimé GOUNOU N\'GOBI, Planificateur, DataManager/DataScientist]:computer:')
+st.markdown("""    
+    <div style="text-align: center; margin-top: 30px;">
+        <span style="color: blue; font-size: 16px;"> Application web développée par :</span>
+    </div>
+    <div style="text-align: center; margin-top: 5px;">
+        <span style="color: blue; font-size: 16px;">💻 Chabi Zimé GOUNOU N'GOBI, Planificateur, Data Manager/Data Scientist 💻</span>
+    </div> 
+                """, unsafe_allow_html=True)

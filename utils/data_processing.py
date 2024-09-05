@@ -18,10 +18,10 @@ columns_prcent = ['N°','college','promotion', 'ayant composé M','ayant compos�
 
 
 def load_data_eff():
-    return pd.read_csv('data/data_eff.csv')
+    return pd.read_csv('C:/Users/ok/school_results/school_results_git/data/data_eff.csv')
 
 def load_data_prcent():
-    return pd.read_csv('data/data_prcent.csv')
+    return pd.read_csv('C:/Users/ok/school_results/school_results_git/data/data_prcent.csv')
 
 
 

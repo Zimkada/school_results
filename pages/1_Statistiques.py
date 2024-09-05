@@ -30,7 +30,12 @@ def main():
     cols_to_exclude = ['N°','college','promotion']
     cols_to_modify = [col for col in df_percent.columns if col not in cols_to_exclude]
     for col in cols_to_modify:
-        df_percent_college[col] = df_percent_college[col].apply(lambda x: f"{x:.1f}%" if isinstance(x, (int, float)) else x)
+        
+        # Convertir la colonne en type 'object'
+        df_percent_college.loc[:, col] = df_percent_college.loc[:, col].astype('object')
+
+        #Ajout du symbole %
+        df_percent_college.loc[:, col] = df_percent_college.loc[:, col].apply(lambda x: f"{x:.1f}%" if isinstance(x, (int, float)) else x)
         #df_percent_college[col] = df_percent_college[col].astype(str) +'%'
 
     st.subheader(":blue[Tableau en effectifs]")
@@ -73,3 +78,12 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+st.markdown("""    
+    <div style="text-align: center; margin-top: 30px;">
+        <span style="color: blue; font-size: 16px;"> Application web développée par :</span>
+    </div>
+    <div style="text-align: center; margin-top: 5px;">
+        <span style="color: blue; font-size: 16px;">💻 Chabi Zimé GOUNOU N'GOBI, Planificateur, Data Manager/Data Scientist 💻</span>
+    </div> 
+                """, unsafe_allow_html=True)
